@@ -1,0 +1,15 @@
+{
+  "stats": [
+    { "label": "Safety Rating", "value": "0.82", "subtext": "EMR (Industry Best)" },
+    { "label": "Projects Completed", "value": "150+", "subtext": "Residential & Comm." },
+    { "label": "Bonding Capacity", "value": "$5M", "subtext": "Ready for Gov" },
+    { "label": "Years Experience", "value": "15", "subtext": "Combined Leadership" }
+  ],
+  "safetyChart": [
+    { "name": "2019", "incidents": 2, "hours": 80 },
+    { "name": "2020", "incidents": 1, "hours": 90 },
+    { "name": "2021", "incidents": 0, "hours": 110 },
+    { "name": "2022", "incidents": 0, "hours": 140 },
+    { "name": "2023", "incidents": 0, "hours": 160 }
+  ]
+}

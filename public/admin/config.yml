@@ -1,0 +1,202 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable editorial workflow for drafts/review
+publish_mode: editorial_workflow
+
+# Media files will be stored here
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Site URL for previews
+site_url: https://your-site.netlify.app
+display_url: https://your-site.netlify.app
+logo_url: https://your-site.netlify.app/logo.png
+
+# Slug settings
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # ===================
+  # BLOG POSTS
+  # ===================
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{title}} - {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Safety", "Advice", "Innovation", "Industry News", "Project Spotlight"] }
+      - { label: "Featured Image", name: "imageUrl", widget: "image", required: true }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Short summary shown on blog listing page" }
+      - { label: "Read Time", name: "readTime", widget: "string", default: "5 min read" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # ===================
+  # PROJECTS / PORTFOLIO
+  # ===================
+  - name: "projects"
+    label: "Portfolio Projects"
+    label_singular: "Project"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "gallery/{{slug}}"
+    summary: "{{title}} - {{category}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Residential", value: "Residential" }
+          - { label: "Commercial", value: "Commercial" }
+          - { label: "Renovation", value: "Renovation" }
+          - { label: "Maintenance", value: "Maintenance" }
+          - { label: "Infrastructure", value: "Infrastructure" }
+      - { label: "Location", name: "location", widget: "string", hint: "e.g., Princeton, NJ" }
+      - { label: "Contract Value", name: "contractValue", widget: "string", required: false, hint: "e.g., $125K" }
+      - { label: "Completion Date", name: "completionDate", widget: "datetime", date_format: "YYYY-MM", time_format: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Images"
+        name: "images"
+        widget: "object"
+        fields:
+          - { label: "Before Photo", name: "before", widget: "image" }
+          - { label: "After Photo", name: "after", widget: "image" }
+      - { label: "Tags", name: "tags", widget: "list", hint: "Comma-separated: Structural, Plumbing, High-End Finishes" }
+      - { label: "Challenge", name: "challenge", widget: "text", required: false, hint: "What obstacles did this project face?" }
+      - { label: "Solution", name: "solution", widget: "text", required: false, hint: "How did ETC solve it?" }
+      - label: "Testimonial"
+        name: "testimonial"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Quote", name: "text", widget: "text" }
+          - { label: "Author", name: "author", widget: "string" }
+
+  # ===================
+  # SERVICES
+  # ===================
+  - name: "services"
+    label: "Services"
+    label_singular: "Service"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "services/{{slug}}"
+    identifier_field: "slug"
+    fields:
+      - { label: "Slug (URL)", name: "slug", widget: "string", hint: "URL-friendly name, e.g., residential-renovations" }
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Home", value: "Home" }
+          - { label: "Building", value: "Building2" }
+          - { label: "Trees", value: "Trees" }
+          - { label: "Briefcase", value: "Briefcase" }
+          - { label: "Hammer", value: "Hammer" }
+          - { label: "Droplets", value: "Droplets" }
+          - { label: "Waves", value: "Waves" }
+      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - { label: "Short Description", name: "shortDescription", widget: "text", hint: "One-liner for cards" }
+      - { label: "Full Description", name: "fullDescription", widget: "markdown", hint: "Detailed service overview" }
+      - { label: "Features", name: "features", widget: "list", hint: "List of capabilities" }
+      - label: "Benefits"
+        name: "benefits"
+        widget: "list"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+      - label: "Process Steps"
+        name: "process"
+        widget: "list"
+        fields:
+          - { label: "Step Number", name: "step", widget: "number", value_type: "int", min: 1, max: 10 }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+
+  # ===================
+  # LOCATIONS / TOWNS
+  # ===================
+  - name: "locations"
+    label: "Service Locations"
+    label_singular: "Location"
+    folder: "content/locations"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "locations/{{slug}}"
+    identifier_field: "slug"
+    fields:
+      - { label: "Slug (URL)", name: "slug", widget: "string", hint: "URL-friendly name, e.g., cape-may" }
+      - { label: "Town Name", name: "name", widget: "string" }
+      - label: "County"
+        name: "county"
+        widget: "select"
+        options: ["Cape May", "Atlantic", "Cumberland"]
+      - { label: "Hero Image", name: "imageUrl", widget: "image" }
+      - { label: "Introduction", name: "intro", widget: "text", hint: "Opening paragraph about this location" }
+      - { label: "Custom Message", name: "customMessage", widget: "text", hint: "Why choose ETC in this town?" }
+      - label: "Coordinates"
+        name: "coordinates"
+        widget: "object"
+        fields:
+          - { label: "Latitude", name: "lat", widget: "number", value_type: "float" }
+          - { label: "Longitude", name: "lng", widget: "number", value_type: "float" }
+      - label: "Local Services"
+        name: "services"
+        widget: "list"
+        fields:
+          - { label: "Service Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Service Slug (for linking)", name: "slug", widget: "string", required: false, hint: "e.g., residential-renovations" }
+
+  # ===================
+  # SITE SETTINGS
+  # ===================
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "company"
+        label: "Company Info"
+        file: "content/settings/company.json"
+        fields:
+          - { label: "Company Name", name: "companyName", widget: "string", default: "Essential Trade Contractors" }
+          - { label: "Phone Number", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Address Line 1", name: "address1", widget: "string" }
+          - { label: "City, State ZIP", name: "address2", widget: "string" }
+          - { label: "UEI Number", name: "uei", widget: "string", required: false }
+          - { label: "CAGE Code", name: "cage", widget: "string", required: false }
+      
+      - name: "stats"
+        label: "Safety Stats"
+        file: "content/settings/stats.json"
+        fields:
+          - label: "Key Metrics"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Value", name: "value", widget: "string" }
+              - { label: "Subtext", name: "subtext", widget: "string" }
+          - label: "Safety Chart Data"
+            name: "safetyChart"
+            widget: "list"
+            fields:
+              - { label: "Year", name: "name", widget: "string" }
+              - { label: "Incidents", name: "incidents", widget: "number", value_type: "int" }
+              - { label: "Hours (thousands)", name: "hours", widget: "number", value_type: "int" }
